@@ -54,9 +54,10 @@ pipeline {
     }
     stage('🤖 Install Playwright Browsers & Dependencies') {
       steps {
-        powershell 'npx playwright install --with-deps'
-        powershell 'Copy-Item .env.example .env -ErrorAction SilentlyContinue'
-      }
+        withEnv(['PLAYWRIGHT_DOWNLOAD_CONNECTION_TIMEOUT=120000']) {
+            powershell 'npx playwright install'
+        }
+    }
     }
     
     stage('▶️ Run Playwright Tests') {
