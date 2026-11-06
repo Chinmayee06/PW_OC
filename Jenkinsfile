@@ -52,6 +52,13 @@ pipeline {
          powershell 'npm ci'
       }
     }
+    stage('Install Playwright Browsers') {
+    steps {
+        withEnv(['PLAYWRIGHT_DOWNLOAD_CONNECTION_TIMEOUT=300000']) {
+            powershell 'npx playwright install chromium'
+        }
+    }
+}
     stage('🤖 Install Playwright Browsers & Dependencies') {
       steps {
         withEnv(['PLAYWRIGHT_DOWNLOAD_CONNECTION_TIMEOUT=120000']) {
